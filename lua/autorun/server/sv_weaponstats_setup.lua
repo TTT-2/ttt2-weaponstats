@@ -1,0 +1,1 @@
+resource.AddFile("materials/vgui/ttt/tid_ammo.vmt")
