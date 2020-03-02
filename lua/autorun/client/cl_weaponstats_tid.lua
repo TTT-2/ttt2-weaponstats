@@ -1,3 +1,4 @@
+local mat_tid_dmg = Material("vgui/ttt/dynamic/roles/icon_traitor")
 local mat_tid_acc = Material("vgui/ttt/tid/tid_accuracy")
 local mat_tid_ammo = Material("vgui/ttt/tid/tid_ammo")
 local mat_tid_auto = Material("vgui/ttt/tid/tid_automatic")
@@ -62,6 +63,12 @@ hook.Add("TTTRenderEntityInfo", "HUDDrawTargetIDWeaponStats", function(tData)
 		)
 
 		tData:AddDescriptionLine(
+			LANG.GetParamTranslation("ttt2_wstat_dmg", {dmg = ent.Primary.Damage}),
+			nil,
+			{mat_tid_dmg}
+		)
+
+		tData:AddDescriptionLine(
 			LANG.GetParamTranslation("ttt2_wstat_acc", {acc = LANG.TryTranslation(GetAccuracyLangString(ent.Primary.Cone))}),
 			nil,
 			{mat_tid_acc}
@@ -120,71 +127,4 @@ hook.Add("TTTRenderEntityInfo", "HUDDrawTargetIDAmmoBoxes", function(tData)
 	tData:SetTitle(LANG.TryTranslation("ttt2_wstat_ammo_name"))
 	tData:SetSubtitle(LANG.TryTranslation("ttt2_wstat_ammo_walk_over"))
 	tData:AddIcon(mat_tid_large_ammo)
-end)
-
-hook.Add("Initialize", "ttt2_init_weaponstat_lang", function()
-	LANG.AddToLanguage("English", "ttt2_wstat_ammo", "Stored ammunition: {clip} + {ammo} (max: {ammomax})")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_ammo", "Enthaltene Munition: {clip} + {ammo} (max: {ammomax})")
-
-	LANG.AddToLanguage("English", "ttt2_wstat_acc", "Accuracy: {acc}")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_acc", "Genauigkeit: {acc}")
-
-	LANG.AddToLanguage("English", "ttt2_wstat_rec", "Recoil: {rec}")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_rec", "Rückstoß: {rec}")
-
-	LANG.AddToLanguage("English", "ttt2_wstat_auto", "Automatic weapon")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_auto", "Automatische Waffe")
-
-	LANG.AddToLanguage("English", "ttt2_wstat_not_auto", "Non automatic weapon")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_not_auto", "Nichtautomatische Waffe")
-
-	LANG.AddToLanguage("English", "ttt2_wstat_speed", "Rate of fire: {rate} SPM")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_speed", "Schussrate {rate} SPM")
-
-
-	LANG.AddToLanguage("English", "ttt2_wstat_no_ammo", "no ammo pickup")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_no_ammo", "Munitionaufheben nicht möglich")
-
-
-
-
-	LANG.AddToLanguage("English", "ttt2_wstat_acc_verygood", "very good")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_acc_verygood", "Sehr gut")
-
-	LANG.AddToLanguage("English", "ttt2_wstat_acc_good", "good")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_acc_good", "Gut")
-
-	LANG.AddToLanguage("English", "ttt2_wstat_acc_average", "average")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_acc_average", "Mittel")
-
-	LANG.AddToLanguage("English", "ttt2_wstat_acc_bad", "bad")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_acc_bad", "Schlecht")
-
-	LANG.AddToLanguage("English", "ttt2_wstat_acc_verybad", "very bad")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_acc_verybad", "Sehr schlecht")
-
-
-
-	LANG.AddToLanguage("English", "ttt2_wstat_rec_verylow", "very low")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_rec_verylow", "Sehr niedrig")
-
-	LANG.AddToLanguage("English", "ttt2_wstat_rec_low", "low")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_rec_low", "Niedrig")
-
-	LANG.AddToLanguage("English", "ttt2_wstat_rec_average", "average")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_rec_average", "Mittel")
-
-	LANG.AddToLanguage("English", "ttt2_wstat_rec_high", "high")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_rec_high", "Hoch")
-
-	LANG.AddToLanguage("English", "ttt2_wstat_rec_veryhigh", "very high")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_rec_veryhigh", "Sehr hoch")
-
-
-
-	LANG.AddToLanguage("English", "ttt2_wstat_ammo_name", "Ammo Box")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_ammo_name", "Munitionskiste")
-
-	LANG.AddToLanguage("English", "ttt2_wstat_ammo_walk_over", "Walk over to pick up.")
-	LANG.AddToLanguage("Deutsch", "ttt2_wstat_ammo_walk_over", "Drüberlaufen um aufzusammeln.")
 end)
