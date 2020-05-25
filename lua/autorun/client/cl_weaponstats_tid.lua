@@ -45,7 +45,7 @@ hook.Add("TTTRenderEntityInfo", "HUDDrawTargetIDWeaponStats", function(tData)
 	end
 
 	if ent:Clip1() ~= -1 then
-		ammomax = (ent.Primary.ClipMax == -1) and "ttt2_wstat_no_ammo" or ent.Primary.ClipMax
+		ammomax = (ent.Primary.ClipMax == -1) and LANG.TryTranslation("ttt2_wstat_no_ammo") or ent.Primary.ClipMax
 
 		-- add an empty line if there's already data in the description area
 		if tData:GetAmountDescriptionLines() > 0 then
