@@ -1,4 +1,4 @@
-L = LANG.GetLanguageTableReference("english")
+local L = LANG.GetLanguageTableReference("english")
 
 L["ttt2_wstat_ammo"] = "Stored ammunition: {clip} + {ammo} (max: {ammomax})"
 L["ttt2_wstat_dmg"] = "Damage: {dmg}"
