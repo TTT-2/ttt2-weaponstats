@@ -8,7 +8,7 @@ L["ttt2_wstat_auto"] = "Arma Automatica"
 L["ttt2_wstat_not_auto"] = "Arma Non automatica"
 L["ttt2_wstat_speed"] = "Rateo di fuoco: {rate} SPM"
 
-L["ttt2_wstat_no_ammo"] = "No Munizioni"
+L["ttt2_wstat_no_ammo"] = "no munizioni"
 
 L["ttt2_wstat_acc_verygood"] = "molto buona"
 L["ttt2_wstat_acc_good"] = "buona"
