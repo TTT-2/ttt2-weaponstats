@@ -48,9 +48,13 @@ hook.Add("TTTRenderEntityInfo", "HUDDrawTargetIDWeaponStats", function(tData)
 
 	local clip1 = ent:Clip1()
 
+	-- Use defaultClip as default
 	if clip1 == -1 then
 		clip1 = ent.Primary.DefaultClip
 	end
+
+	-- If there is also no defaultClip then dont show stats at all
+	if clip1 == -1 then return end
 
 	ammomax = (ent.Primary.ClipMax == -1) and LANG.TryTranslation("ttt2_wstat_no_ammo") or ent.Primary.ClipMax
 
