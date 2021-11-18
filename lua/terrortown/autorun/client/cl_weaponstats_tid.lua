@@ -44,62 +44,68 @@ hook.Add("TTTRenderEntityInfo", "HUDDrawTargetIDWeaponStats", function(tData)
 		return
 	end
 
-	if ent:Clip1() ~= -1 then
-		ammomax = (ent.Primary.ClipMax == -1) and LANG.TryTranslation("ttt2_wstat_no_ammo") or ent.Primary.ClipMax
+	if not istable(ent.Primary) then return end
 
-		-- add an empty line if there's already data in the description area
-		if tData:GetAmountDescriptionLines() > 0 then
-			tData:AddDescriptionLine()
-		end
+	local clip1 = ent:Clip1()
 
+	if clip1 == -1 then
+		clip1 = ent.Primary.DefaultClip
+	end
+
+	ammomax = (ent.Primary.ClipMax == -1) and LANG.TryTranslation("ttt2_wstat_no_ammo") or ent.Primary.ClipMax
+
+	-- add an empty line if there's already data in the description area
+	if tData:GetAmountDescriptionLines() > 0 then
+		tData:AddDescriptionLine()
+	end
+
+	tData:AddDescriptionLine(
+		LANG.GetParamTranslation("ttt2_wstat_ammo", {
+			ammo = ent:GetNWInt("ttt2_wepstat_stored_ammo", 0),
+			ammomax = ammomax or 0,
+			clip = clip1 or 0
+		}),
+		nil,
+		{mat_tid_ammo}
+	)
+
+	tData:AddDescriptionLine(
+		LANG.GetParamTranslation("ttt2_wstat_dmg", {dmg = ent.Primary.Damage}),
+		nil,
+		{mat_tid_dmg}
+	)
+
+	tData:AddDescriptionLine(
+		LANG.GetParamTranslation("ttt2_wstat_acc", {acc = LANG.TryTranslation(GetAccuracyLangString(ent.Primary.Cone))}),
+		nil,
+		{mat_tid_acc}
+	)
+
+	tData:AddDescriptionLine(
+		LANG.GetParamTranslation("ttt2_wstat_rec", {rec = LANG.TryTranslation(GetRecoilLangString(ent.Primary.Recoil))}),
+		nil,
+		{mat_tid_rec}
+	)
+
+	if ent.Primary.Automatic then
 		tData:AddDescriptionLine(
-			LANG.GetParamTranslation("ttt2_wstat_ammo", {
-				ammo = ent:GetNWInt("ttt2_wepstat_stored_ammo", 0),
-				ammomax = ammomax or 0,
-				clip = ent:Clip1() or 0
-			}),
+			LANG.TryTranslation("ttt2_wstat_auto"),
 			nil,
-			{mat_tid_ammo}
+			{mat_tid_auto}
 		)
-
+	else
 		tData:AddDescriptionLine(
-			LANG.GetParamTranslation("ttt2_wstat_dmg", {dmg = ent.Primary.Damage}),
+			LANG.TryTranslation("ttt2_wstat_not_auto"),
 			nil,
-			{mat_tid_dmg}
-		)
-
-		tData:AddDescriptionLine(
-			LANG.GetParamTranslation("ttt2_wstat_acc", {acc = LANG.TryTranslation(GetAccuracyLangString(ent.Primary.Cone))}),
-			nil,
-			{mat_tid_acc}
-		)
-
-		tData:AddDescriptionLine(
-			LANG.GetParamTranslation("ttt2_wstat_rec", {rec = LANG.TryTranslation(GetRecoilLangString(ent.Primary.Recoil))}),
-			nil,
-			{mat_tid_rec}
-		)
-
-		if ent.Primary.Automatic then
-			tData:AddDescriptionLine(
-				LANG.TryTranslation("ttt2_wstat_auto"),
-				nil,
-				{mat_tid_auto}
-			)
-		else
-			tData:AddDescriptionLine(
-				LANG.TryTranslation("ttt2_wstat_not_auto"),
-				nil,
-				{mat_tid_auto}
-			)
-		end
-
-		tData:AddDescriptionLine(
-			LANG.GetParamTranslation("ttt2_wstat_speed", {rate = math.Round(60 / ent.Primary.Delay)}),
-			nil,
-			{mat_tid_speed}
+			{mat_tid_auto}
 		)
 	end
+
+	tData:AddDescriptionLine(
+		LANG.GetParamTranslation("ttt2_wstat_speed", {rate = math.Round(60 / ent.Primary.Delay)}),
+		nil,
+		{mat_tid_speed}
+	)
 end)
 
 local ammo_types = {
