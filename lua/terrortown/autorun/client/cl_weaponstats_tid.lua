@@ -12,7 +12,11 @@ local function GetAccuracyLangString(weapon)
 	
 	if not acc then
 		if weapon.ArcCW and ArcCW then
-			acc = weapon:GetDispersion() * ArcCW.MOAToAcc / 10	
+			acc = weapon:GetBuff("SightsDispersion")
+
+			if acc != 0 then -- Not a sniper
+				acc = weapon:GetBuff("HipDispersion") * ArcCW.MOAToAcc / 10	
+			end
 		end
 	end
 	
@@ -38,7 +42,7 @@ local function GetRecoilLangString(weapon)
 	
 	if not acc then
 		if weapon.ArcCW and ArcCW then
-			acc = weapon.Recoil * 4
+			acc = weapon.Recoil * 6
 		end
 	end
 	
@@ -151,7 +155,7 @@ hook.Add("TTTRenderEntityInfo", "HUDDrawTargetIDWeaponStats", function(tData)
 		)
 	end
 		
-	local delay = GetDelay(weapon)
+	local delay = GetDelay(ent)
 		
 	if delay then
 		tData:AddDescriptionLine(
