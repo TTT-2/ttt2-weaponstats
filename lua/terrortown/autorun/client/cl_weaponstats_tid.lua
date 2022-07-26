@@ -10,13 +10,12 @@ local mat_tid_large_ammo = Material("vgui/ttt/tid/tid_lg_ammo")
 local function GetAccuracyLangString(weapon)
 	local acc = weapon.Primary.Cone
 	
-	if not acc then
-		if weapon.ArcCW and ArcCW then
-			acc = weapon:GetBuff("SightsDispersion")
+	-- special ArcCW weapon handling
+	if not acc and weapon.ArcCW and ArcCW then
+		acc = weapon:GetBuff("SightsDispersion")
 
-			if acc != 0 then -- Not a sniper
-				acc = weapon:GetBuff("HipDispersion") * ArcCW.MOAToAcc / 10	
-			end
+		if acc ~= 0 then -- not a sniper
+			acc = weapon:GetBuff("HipDispersion") * ArcCW.MOAToAcc / 10	
 		end
 	end
 	
