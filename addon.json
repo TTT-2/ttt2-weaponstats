@@ -1,11 +1,6 @@
 {
-	"title"		:	"[TTT2] Weapon Statistics [FEATURE]",
-	"type"		:	"effects",
-    "tags"		:	[ "realism", "fun" ],
-    "ignore"    : [
-        ".git/*",
-        ".gitignore",
-        "README.md",
-		"ttt2-wep_stats.jpg"
-    ]
+  "title": "[TTT2] Weapon Statistics [FEATURE]",
+  "type": "effects",
+  "tags": ["realism", "fun"],
+  "ignore": [".git/*", ".gitignore", "README.md", "ttt2-weaponstats.jpg"]
 }

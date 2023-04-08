@@ -9,16 +9,16 @@ local mat_tid_large_ammo = Material("vgui/ttt/tid/tid_lg_ammo")
 
 local function GetAccuracyLangString(weapon)
 	local acc = weapon.Primary.Cone
-	
+
 	-- special ArcCW weapon handling
 	if not acc and weapon.ArcCW and ArcCW then
 		acc = weapon:GetBuff("SightsDispersion")
 
 		if acc ~= 0 then -- not a sniper
-			acc = weapon:GetBuff("HipDispersion") * ArcCW.MOAToAcc / 10	
+			acc = weapon:GetBuff("HipDispersion") * ArcCW.MOAToAcc / 10
 		end
 	end
-	
+
 	if acc then
 		if acc <= 0.01 then
 			return "ttt2_wstat_acc_verygood"
@@ -32,19 +32,17 @@ local function GetAccuracyLangString(weapon)
 			return "ttt2_wstat_acc_verybad"
 		end
 	end
-	
+
 	return "ttt2_wstat_acc_average"
 end
 
 local function GetRecoilLangString(weapon)
 	local acc = weapon.Primary.Recoil
-	
-	if not acc then
-		if weapon.ArcCW and ArcCW then
-			acc = weapon.Recoil * 6
-		end
+
+	if not acc and weapon.ArcCW and ArcCW then
+		acc = weapon.Recoil * 6
 	end
-	
+
 	if acc then
 		if acc <= 2 then
 			return "ttt2_wstat_rec_verylow"
@@ -58,29 +56,29 @@ local function GetRecoilLangString(weapon)
 			return "ttt2_wstat_rec_veryhigh"
 		end
 	end
-	
+
 	return "ttt2_wstat_rec_average"
 end
 
 local function GetDamage(weapon)
 	local damage = weapon.Primary.Damage
-	
+
 	if damage ~= nil then return damage end
-	
+
 	damage = weapon.Damage
-	
+
 	if damage ~= nil then return damage end
-	
+
 	return "N/A"
 end
 
 local function GetDelay(weapon)
 	local delay = weapon.Primary.Delay
-	
+
 	if delay ~= nil then return delay end
-	
+
 	delay = weapon.Delay
-	
+
 	return delay
 end
 
@@ -153,9 +151,9 @@ hook.Add("TTTRenderEntityInfo", "HUDDrawTargetIDWeaponStats", function(tData)
 			{mat_tid_auto}
 		)
 	end
-		
+
 	local delay = GetDelay(ent)
-		
+
 	if delay then
 		tData:AddDescriptionLine(
 			LANG.GetParamTranslation("ttt2_wstat_speed", {rate = math.Round(60 / delay)}),
