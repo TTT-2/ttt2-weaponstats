@@ -1,3 +1,3 @@
-# TTT2 Weaponstats
+# ttt2-weaponstats
 
-Weaponstats for the TTT2 targetID
+Displays a weapon's stats when looking at weapons on the ground.
