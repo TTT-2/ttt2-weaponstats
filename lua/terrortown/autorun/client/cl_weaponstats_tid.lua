@@ -1,19 +1,14 @@
 local mat_tid_dmg = Material("vgui/ttt/dynamic/roles/icon_traitor")
 local mat_tid_acc = Material("vgui/ttt/tid/tid_accuracy")
 local mat_tid_ammo = Material("vgui/ttt/tid/tid_ammo")
+local mat_tid_bullet = Material("vgui/ttt/pickup/icon_ammo.png")
 local mat_tid_auto = Material("vgui/ttt/tid/tid_automatic")
 local mat_tid_rec = Material("vgui/ttt/tid/tid_recoil")
 local mat_tid_speed = Material("vgui/ttt/tid/tid_spm")
 
 local mat_tid_large_ammo = Material("vgui/ttt/tid/tid_lg_ammo")
 
-local ammo_type_icons = {
-	["357"] = Material("vgui/ttt/tid/tid_big_ammo_rifle"),
-	["Buckshot"] = Material("vgui/ttt/tid/tid_big_ammo_shotgun"),
-	["SMG1"] = Material("vgui/ttt/tid/tid_big_ammo_mac10"),
-	["Pistol"] = Material("vgui/ttt/tid/tid_big_ammo_pistol"),
-	["AlyxGun"] = Material("vgui/ttt/tid/tid_big_ammo_deagle"),
-}
+local BaseHUD = baseclass.Get("pure_skin_element")
 
 local function GetAccuracyLangString(weapon)
 	local acc = weapon.Primary.Cone
@@ -118,7 +113,7 @@ hook.Add("TTTRenderEntityInfo", "HUDDrawTargetIDWeaponStats", function(tData)
 		tData:AddDescriptionLine()
 	end
 
-	local ammo_mat = ammo_type_icons[ent.Primary.Ammo] or mat_tid_ammo
+	local ammo_mat = BaseHUD.BulletIcons[ent.Primary.Ammo] or mat_tid_bullet
 
 	tData:AddDescriptionLine(
 		LANG.GetParamTranslation("ttt2_wstat_ammo", {
@@ -195,7 +190,8 @@ hook.Add("TTTRenderEntityInfo", "HUDDrawTargetIDAmmoBoxes", function(tData)
 	tData:EnableOutline()
 	tData:SetOutlineColor(client:GetRoleColor())
 
-	tData:SetTitle(LANG.TryTranslation("ammo_" .. string.lower(ent.AmmoType)))
+	local ammo_type = string.lower(ent.AmmoType)
+	tData:SetTitle(LANG.TryTranslation("ammo_" .. ammo_type))
 	tData:SetSubtitle(LANG.TryTranslation("ttt2_wstat_ammo_walk_over"))
-	tData:AddIcon(ammo_type_icons[ent.AmmoType] or mat_tid_large_ammo)
+	tData:AddIcon(BaseHUD.AmmoIcons[ammo_type] or mat_tid_large_ammo)
 end)
