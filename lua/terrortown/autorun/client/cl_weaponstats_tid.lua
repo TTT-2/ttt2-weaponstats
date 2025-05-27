@@ -1,6 +1,5 @@
 local mat_tid_dmg = Material("vgui/ttt/dynamic/roles/icon_traitor")
 local mat_tid_acc = Material("vgui/ttt/tid/tid_accuracy")
-local mat_tid_ammo = Material("vgui/ttt/tid/tid_ammo")
 local mat_tid_bullet = Material("vgui/ttt/pickup/icon_ammo.png")
 local mat_tid_auto = Material("vgui/ttt/tid/tid_automatic")
 local mat_tid_rec = Material("vgui/ttt/tid/tid_recoil")
@@ -192,16 +191,17 @@ hook.Add("TTTRenderEntityInfo", "HUDDrawTargetIDAmmoBoxes", function(tData)
 	tData:EnableText()
 	tData:EnableOutline()
 
+	local ammo_type = string.lower(ent.AmmoType)
+
 	if not client:IsSpec() then
 		tData:SetOutlineColor(client:GetRoleColor())
 		tData:SetSubtitle(LANG.TryTranslation("ttt2_wstat_ammo_walk_over"))
+		tData:AddIcon(BaseHUD.AmmoIcons[ammo_type] or mat_tid_large_ammo)
 	else
 		tData:SetOutlineColor(COLOR_SPEC)
 	end
 
-	local ammo_type = string.lower(ent.AmmoType)
 	tData:SetTitle(LANG.TryTranslation("ammo_" .. ammo_type))
-	tData:AddIcon(BaseHUD.AmmoIcons[ammo_type] or mat_tid_large_ammo)
 end)
 
 hook.Add("TTTRenderEntityInfo", "HUDDrawTargetIDGrenadesForSpectators", function(tData)
